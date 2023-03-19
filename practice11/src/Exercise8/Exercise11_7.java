@@ -1,14 +1,19 @@
+package Exercise8;
+
 import java.util.*;
 
-class Student2 {
+class Student {
 	String name;
 	int ban;
 	int no;
 	int kor;
 	int eng;
 	int math;
+	
+	int total; // 총점
+	int schoolRank; // 전교등수
 
-	Student2(String name, int ban, int no, int kor, int eng, int math) {
+	Student(String name, int ban, int no, int kor, int eng, int math) {
 		this.name = name;
 		this.ban = ban;
 		this.no = no;
@@ -30,25 +35,28 @@ class Student2 {
 	}
 } // class Student
 
-class BanNoAscending implements Comparator<Student2> {
+class BanNoAscending implements Comparator<Student> {
+
 	@Override
-	public int compare(Student2 o1, Student2 o2) {
-		int cnt = 0;
-		if(o1.ban == o2.ban) { cnt = o1.no - o2.no; }
-		else { cnt = o1.ban - o2.ban; }
+	public int compare(Student o1, Student o2) {
+		int cnt;
+		if(o1.ban == o2.ban) {
+			cnt = o1.no - o2.no;
+		}else {
+			cnt = o1.ban - o2.ban;
+		}
 		return cnt;
 	}
 }
 
 class Exercise11_7 {
 	public static void main(String[] args) {
-		ArrayList<Student2> list = new ArrayList<>();
-		list.add(new Student2("이자바", 2, 1, 70, 90, 70));
-		
-		list.add(new Student2("안자바", 2, 2, 60, 100, 80));
-		list.add(new Student2("홍길동", 1, 3, 100, 100, 100));
-		list.add(new Student2("남궁성", 1, 1, 90, 70, 80));
-		list.add(new Student2("김자바", 1, 2, 80, 80, 90));
+		ArrayList<Student> list = new ArrayList<>();
+		list.add(new Student("이자바", 2, 1, 70, 90, 70));
+		list.add(new Student("안자바", 2, 2, 60, 100, 80));
+		list.add(new Student("홍길동", 1, 3, 100, 100, 100));
+		list.add(new Student("남궁성", 1, 1, 90, 70, 80));
+		list.add(new Student("김자바", 1, 2, 80, 80, 90));
 		Collections.sort(list, new BanNoAscending());
 		Iterator it = list.iterator();
 		while (it.hasNext())

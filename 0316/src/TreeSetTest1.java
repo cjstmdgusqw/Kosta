@@ -9,7 +9,8 @@ public class TreeSetTest1 {
 	    test.add(77);
 	    
 	    
-	    //System.out.println(test);
+	    
+	    System.out.println(test);
 	    
 	    TreeSet<String> sset = new TreeSet<>();
 	    sset.add("hong");
@@ -28,6 +29,7 @@ public class TreeSetTest1 {
 	    
 	    TreeSet<Complex> cset = new TreeSet<>(new ComplexCompare());
 	    cset.add(new Complex(3,5));
+	    cset.add(new Complex(1,3));
 	    cset.add(new Complex(4,7));
 	    cset.add(new Complex(2,3));
 	    cset.add(new Complex(3,8));
