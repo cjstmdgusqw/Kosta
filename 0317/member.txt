@@ -1,0 +1,6 @@
+#Member Info
+#Fri Mar 17 12:16:53 KST 2023
+address=seoul
+name=hong
+id=10001
+email=hong@naver.com

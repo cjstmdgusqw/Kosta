@@ -2,7 +2,7 @@ package Exercise11_9;
 
 import java.util.*;
 
-class Student implements Comparable<Student> {
+class Student implements Comparable<Student>{
 	String name;
 	int ban;
 	int no;
@@ -30,6 +30,12 @@ class Student implements Comparable<Student> {
 	float getAverage() {
 		return (int) ((getTotal() / 3f) * 10 + 0.5) / 10f;
 	}
+	
+	
+	@Override
+	public int compareTo(Student o) {
+		return o.total - this.total;
+	}
 
 	public String toString() {
 		return name + "," + ban + "," + no + "," + kor + "," + eng + "," + math + "," + getTotal() + "," + getAverage()
@@ -37,22 +43,13 @@ class Student implements Comparable<Student> {
 		;
 	}
 
-	@Override
-	public int compareTo(Student o) {
-		return this.total - o.total;
-	}
 } // class Student
 
-
 class ClassTotalComparator implements Comparator<Student> {
+
 	@Override
 	public int compare(Student o1, Student o2) {
-		int cnt;
-		if(o1.ban == o2.ban) {
-			cnt =  o1.no - o2.no;
-		}
-		cnt = o1.ban - o2.ban;
-		return cnt;
+		return o2.total - o1.total;
 	}
 }
 
@@ -65,18 +62,11 @@ class Exercise11_9 {
 		int prevTotal = -1;
 		int length = list.size();
 		
-		for (int i = 0; i < length; i++) {
-			Student s = list.get(i);
-			if(prevBan != s.ban) { prevRank = -1; prevTotal = -1; }
-			else if(s.total == prevTotal) { s.schoolRank = prevRank; }
-			else if(s.total != prevTotal){
-				s.schoolRank = i + 1;
-				System.out.println(s.schoolRank);
-			}
-			prevBan = s.ban;
-			prevRank = s.schoolRank;
-			prevTotal = s.total;
-		}
+		int samework =  0;
+		
+		Iterator it = list.iterator();
+		
+	
 		/*
 		 * (2) 아래의 로직에 맞게 코드를 작성하시오. 1. 반복문을 이용해서 list에 저장된 Student객체를 하나씩 읽는다. 1.1 반이
 		 * 달라지면,(ban과 prevBan이 다르면) 이전 등수(prevRank)와 이전 총점(prevTotal)을 초기화 한다. 1.2
@@ -100,8 +90,8 @@ class Exercise11_9 {
 		list.add(new Student("김자바", 1, 2, 80, 80, 90));
 		calculateSchoolRank(list);
 		calculateClassRank(list);
-		Iterator it = list.iterator();
-		while(it.hasNext())
-		System.out.println(it.next());
+		Iterator<Student> it = list.iterator();
+		while (it.hasNext())
+			System.out.println(it.next());
 	}
 }
