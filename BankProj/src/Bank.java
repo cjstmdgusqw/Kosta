@@ -1,7 +1,11 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -187,6 +191,58 @@ public class Bank {
 			}
 		}
     }
+    void saveAllAccount_t() {
+    	FileWriter fw = null;
+    	BufferedWriter bf = null;
+    	try {
+    		fw = new FileWriter("accs.txt");
+    		bf = new BufferedWriter(fw);
+    		
+    		for (Account as : accs.values()) {
+				String V = "";
+				V +=  as.getId();
+				V += "," + as.getName();
+				V += "," + as.getBalance();
+				if (as instanceof SpecialAccount) {
+					V += "," + ((SpecialAccount)as).getGrade();
+				}
+				bf.write(V);
+				bf.newLine();
+			}
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	} finally {
+    		try {
+				if(bf != null) bf.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    }
+    void loadAllAccount_t() {
+    	FileReader fr = null;
+    	BufferedReader br = null;
+    	
+    	String str = null;
+    	try {
+    		fr = new FileReader("accs.txt");
+    		br = new BufferedReader(fr);
+    		while((str = br.readLine()) != null) {
+        		String[] arr = str.split(",");   
+        		String id = arr[0];
+        		String name = arr[1];
+        		int balance = Integer.parseInt(arr[2]);
+        		if(arr.length == 4) {
+        			String grade = arr[3];
+        			accs.put(id, new SpecialAccount(id, name, balance,grade));
+        		}else {
+        			accs.put(id, new Account(id, name, balance));
+        		}
+        	}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
     void loadAllAccount() {
     	FileInputStream fis = null;
     	DataInputStream dis = null;
@@ -225,13 +281,13 @@ public class Bank {
 	
 	public static void main(String[] args) {
 		Bank bank = new Bank();
-		bank.loadAllAccount();
+		bank.loadAllAccount_t();
 		
 		while(true) {
 			try {
 				int sel = bank.menu();
 				if (sel == 0) {
-					bank.saveAllAccount();
+					bank.saveAllAccount_t();
 					break;
 				}
 				if(sel == 0) break;
