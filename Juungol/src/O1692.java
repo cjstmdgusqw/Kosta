@@ -15,7 +15,5 @@ public class O1692 {
 		System.out.println(num4);
 		System.out.println(num5);
 		System.out.println(num6);
-	
 	}
-
 }
