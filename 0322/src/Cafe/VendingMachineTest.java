@@ -20,7 +20,6 @@ class VendingMachineBiz implements IVendingMachineBiz {
 		System.out.println("4.코크 구입하기 ( 50원 )");
 		System.out.println("5.구입한 음료수 목록 보기");
 		System.out.println("9.종료");
-		System.out.println();
 		System.out.println("============================");
 		System.out.println("메뉴입력 =>");
 		int num = Integer.parseInt(sc.nextLine());
